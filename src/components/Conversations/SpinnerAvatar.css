@@ -1,0 +1,129 @@
+
+@keyframes color {
+  0% { border-color: #87D068; }
+  50% { border-color: #87D068; }
+  75% { border-color: #FFAA00; }
+  100% {border-color: #FF5500;}
+}
+
+@keyframes spin {
+  0% { transform: rotate(360deg);}
+  100% { transform: rotate(0deg);}
+}
+
+@keyframes mask {
+  0% { opacity: 0;}
+  50%, 100% { opacity: 1; }
+}
+
+@keyframes mask2 {
+  0% { opacity: 0;}
+  50%, 100% { opacity: 1; }
+}
+
+.avatar-wrapper {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  padding: 4px;
+  left: -8px;
+  top: 17px;
+
+  &::before {
+    content: ' ';
+    display: inline-block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    border: 2px solid #F3F3F3;
+    left: 0;
+    top: 0;
+    z-index: 6;
+  }
+}
+
+.avatar-image {
+  display: inline-block;
+  position: absolute;
+  z-index: 10;
+  width:  32px;
+  height: 32px;
+  padding: 5px 0 0 8px;
+  border-radius: 50%;
+  background-color: #6cd3df;
+  font-size: 14px;
+  color: white;
+
+  .conversation-header{
+    position: relative;
+    left: auto;
+    top: auto;
+    border: none;
+  }
+}
+
+
+.avatar-spinner-mask {
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  border: 2px solid #87D068;
+  border-left: 0;
+  left: 50%;
+  top: 0;
+  border-top-right-radius: 100% 50%;
+  border-bottom-right-radius: 100% 50%;
+  background-color: white;
+  z-index: 8;
+  transform-origin: 0 50%;
+}
+
+.avatar-spinner-mask2 {
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  border: 2px solid #87D068;
+  border-right: 0;
+  left: 0;
+  top: 0;
+  border-top-left-radius: 100% 50%;
+  border-bottom-left-radius: 100% 50%;
+  background-color: white;
+  z-index: 8;
+  transform-origin: 100% 50%;
+}
+
+.avatar-spinner-mask3 {
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  background-color: white;
+  z-index: 9;
+  right: 0;
+  top: 0;
+  border: 2px solid #F3F3F3;
+  border-left: 0;
+  border-top-right-radius: 100% 50%;
+  border-bottom-right-radius: 100% 50%;
+  box-shadow: 1px 0 0 1px white;
+}
+
+
+.avatar-spinner-mask {
+  animation: spin 5s linear infinite,
+    color 5s linear infinite;
+}
+
+.avatar-spinner-mask2 {
+  animation: mask 5s steps(1, end) infinite reverse,
+    color 5s linear infinite;
+}
+
+.avatar-spinner-mask3 {
+  animation: mask2 5s steps(1, end) infinite;
+}

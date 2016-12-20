@@ -1,0 +1,118 @@
+.bubble {
+  position: relative;
+  margin-top: 14px;
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  line-height: 16px;
+  padding: 8px;
+}
+
+.system {
+  .bubble {
+    text-align: center;
+    border: none;
+    color: #ccc;
+  }
+}
+
+.time {
+  position: absolute;
+  color: #ccc;
+  font-size: 9px;
+}
+.robot {
+  position: relative;
+  padding: 0 16px;
+  margin: 16px 0;
+  overflow: auto;
+  overflow-y: hidden;
+
+  .time {
+    float: left;
+  }
+
+  .bubble {
+    .bubble();
+    float: left;
+    border-radius: 6px 6px 6px 0;
+    background-clip: padding-box;
+    margin-right: 98px;
+    &::before {
+      content: ' ';
+      width: 10px;
+      height: 10px;
+      background-color: white;
+      position: absolute;
+      left: -10px;
+      bottom: -1px;
+      border-bottom: 1px solid #d9d9d9;
+    }
+    &::after {
+      content: ' ';
+      width: 10px;
+      height: 10px;
+      background-color: white;
+      border-bottom-right-radius: 10px;
+      position: absolute;
+      left: -10px;
+      bottom: 0px;
+      border: 1px solid transparent;
+      border-bottom-color: #d9d9d9;
+      border-right-color: #d9d9d9;
+    }
+  }
+}
+
+
+.me {
+  position: relative;
+  padding: 0 16px;
+  margin: 16px 0;
+  overflow: auto;
+  overflow-y: hidden;
+  .time {
+    right: 35px;
+  }
+  .bubble {
+    .bubble();
+    background-color: #57c6f7;
+    border-color: #57c6f7;
+    color: white;
+    float: right;
+    border-radius: 6px 6px 0 6px;
+    background-clip: padding-box;
+    margin-right: 18px;
+    margin-left: 98px;
+    &::before {
+      content: ' ';
+      width: 10px;
+      height: 10px;
+      background-color: #57c6f7;
+      position: absolute;
+      right: -10px;
+      bottom: -1px;
+      border-bottom: 1px solid #57c6f7;
+    }
+    &::after {
+      content: ' ';
+      width: 10px;
+      height: 10px;
+      background-color: white;
+      border-bottom-left-radius: 10px;
+      position: absolute;
+      right: -10px;
+      bottom: 0px;
+      border: 1px solid transparent;
+      border-bottom-color: #57c6f7;
+      border-left-color: #57c6f7;
+    }
+  }
+}
+
+.chatPresent {
+  position: absolute;
+  width: 100%;
+  top: 50px;
+  bottom: 90px;
+  overflow-y: auto;
+}

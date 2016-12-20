@@ -1,0 +1,30 @@
+.header {
+  height: 50px;
+  background-color: #F7F7F7;
+  padding:8px 16px 8px 64px;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+
+.avatar {
+  display: inline-block;
+  position: absolute;
+  left: 16px;
+  width: 32px;
+  height: 32px;
+  padding: 5px 0 0 8px;
+  border-radius: 50%;
+  background-color: #6cd3df;
+  font-size: 14px;
+  color: white;
+}
+
+.userName {
+  font-size: 14px;
+}
+
+.actions {
+  float: right;
+  cursor: pointer;
+  line-height: 36px;
+}

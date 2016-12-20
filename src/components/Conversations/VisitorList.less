@@ -1,0 +1,27 @@
+.conversation {
+  height: 75px;
+  position: relative;
+  cursor: pointer;
+  padding-left: 28px;
+}
+
+.conversation:hover, .active {
+  border-right: 2px solid #38b8f2;
+  background-color: #fbfbfb;
+  .close {
+    display: block;
+  }
+}
+
+.close {
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  display: none;
+}
+
+.sessionType {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
