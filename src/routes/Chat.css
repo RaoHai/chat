@@ -15,9 +15,9 @@
 .chat {
   position: relative;
   min-width: 75em;
+  max-width: 90em;
   width: 90%;
   height: 80%;
-  background-color: white;
   border-radius: 6px;
   box-shadow: 5px 5px 15px 0 rgba(214, 214, 214, .15);
 }

@@ -1,25 +1,25 @@
 .server {
-  height: 70px;
-  padding: 15px 0 0 25px;
-  position: relative;
+  float: right;
 }
 
 .avatar {
   cursor: pointer;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
+  position: relative;
+  width: 32px;
+  height: 32px;
+  margin-top: -3px;
+  line-height: 32px;
   text-align: center;
-  border-radius: 40px;
+  border-radius: 32px;
   border: 1px solid white;
   background-color: rgb(153, 153, 153);
 }
 
 .anticon {
-  font-size: 25px;
+  font-size: 18px;
   color: white;
   position: relative;
-  top: 5px;
+  top: 2px;
 }
 
 .status {
@@ -31,15 +31,15 @@
   border: 2px solid white;
   background-color: rgb(153, 153, 153);
   position: absolute;
-  left: 55px;
-  top: 43px;
+  left: 22px;
+  top: 22px;
   cursor: pointer;
 }
 
 .serviceName {
   position: absolute;
-  left: 80px;
-  top: 17px;
+  right: 60px;
+  top: 15px;
   font-size: 14px;
   font-weight: bold;
 }

@@ -14,20 +14,19 @@ const select = props => ({
 export default connect(select)(({ dispatch, conversations, active }) => {
   return <div>
     {conversations.map((conversation, idx) => {
-      const { userId, userName, sessionType } = conversation;
+      const { userId, userName, sessionType, avatar } = conversation;
       const nameSub = userName.substr(0, 1).toUpperCase();
       const conversationCls = classNames({
         [styles.conversation]: true,
         [styles.active]: active === idx,
       });
-
       return <div
         onClick={() => dispatch({ type: 'conversations/setActive', idx })}
         className={conversationCls}
         key={idx}
       >
         <SpinnerAvatar duration={300} backgroundColor={getColorByChar(nameSub)}>
-          {nameSub}
+          {avatar ? <img src={avatar} /> : <span className={styles.nameSub}>{nameSub}</span>}
         </SpinnerAvatar>
         {userName}
         <span className={styles.sessionType}>{sessionType === 'robot' ? <Icon type="android" /> : null}</span>

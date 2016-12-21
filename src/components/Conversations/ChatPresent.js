@@ -31,7 +31,7 @@ export default class ChatPresent extends React.Component {
         ? <span className={styles.time}>{moment(conversation.time).format('HH:mm:ss')}</span>
         : null }
         <div className={styles.bubble}>
-        {conversation.content}
+        <span dangerouslySetInnerHTML={{ __html: conversation.content }} />
         </div>
       </div>
     )}

@@ -50,12 +50,12 @@ export default {
       const content = payload;
       switch (content.type) {
         case 'sessionStart':
-          console.log('>> sessionUuid', content.robotConfig);
           if (!list.find(item => item.userId === content.userId)) {
             list.push({
               cid: content.cid,
               userId: content.user.userId,
               userName: content.user.userName,
+              avatar: content.avatar,
               sessionType: content.sessionType,
               robotParams: {...content.robotParams, sessionUuid: content.robotConfig.data.sessionUuid },
               conversations: content.conversations || [],

@@ -47,10 +47,11 @@ module.exports = {
           content: [{
             type: 'sessionStart',
             sessionType: 'robot',
+            avatar: 'https://cloudcs-knowledge-outer.oss-cn-hangzhou.aliyuncs.com/fcrobot/ZPLKH1CN/8f8da99007aefa1dd786811fd2111b25.jpg',
             cid: 208801,
             user: {
               userId: 1,
-              userName: '王二',
+              userName: '云客服机器人',
             },
             robotParams: {
               tntInstId: 'ZPLKH1CN',
@@ -58,6 +59,25 @@ module.exports = {
               robotCode: 'ROB00000106',
               terminal: 'PC',
               sceneCode: 'SCE00000039',
+            },
+          }],
+        });
+      } else if (req.query.t === '2') {
+        res.json({
+          success: true,
+          content: [{
+            type: 'sessionStart',
+            sessionType: 'robot',
+            avatar: 'https://bos.nj.bpc.baidu.com/v1/nightingale/channelconfig/20160926/d7cb0b16-3006-4931-a3c0-40fdc25a5324.png',
+            cid: 208802,
+            user: {
+              userId: 2,
+              userName: '智能机器人糯娃',
+            },
+            robotParams: {
+              m: 'init',
+              to: 'nuomijiqiren',
+              ct: 'v',
             },
           }],
         });
