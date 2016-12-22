@@ -8,8 +8,10 @@ export default function Chat(props) {
   return <div className={styles.wrapper}>
     <div className={styles.chat}>
       <Header />
-      <Slider />
-      <MainPanel />
+      <div className={styles.body}>
+        <Slider />
+        <MainPanel />
+      </div>
     </div>
   </div>
 }

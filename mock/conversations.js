@@ -54,30 +54,12 @@ module.exports = {
               userName: '云客服机器人',
             },
             robotParams: {
+              robotId: 208801,
               tntInstId: 'ZPLKH1CN',
               scene: 'SCE00000039',
               robotCode: 'ROB00000106',
               terminal: 'PC',
               sceneCode: 'SCE00000039',
-            },
-          }],
-        });
-      } else if (req.query.t === '2') {
-        res.json({
-          success: true,
-          content: [{
-            type: 'sessionStart',
-            sessionType: 'robot',
-            avatar: 'https://bos.nj.bpc.baidu.com/v1/nightingale/channelconfig/20160926/d7cb0b16-3006-4931-a3c0-40fdc25a5324.png',
-            cid: 208802,
-            user: {
-              userId: 2,
-              userName: '智能机器人糯娃',
-            },
-            robotParams: {
-              m: 'init',
-              to: 'nuomijiqiren',
-              ct: 'v',
             },
           }],
         });

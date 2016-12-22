@@ -1,19 +1,33 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import { Button } from 'antd';
+import { Menu, Dropdown, Icon, Button } from 'antd';
 import styles from './IndexPage.css';
+import firebase from 'firebase';
 
-function IndexPage() {
+function IndexPage(props) {
+  const menu = (
+    <Menu onClick={(e) => props.dispatch({ type: 'auth/login', payload: e.key }) }>
+      <Menu.Item key="google"><Icon type="chrome" /> Sign with Google</Menu.Item>
+      <Menu.Item key="github"><Icon type="github" /> Sign with Github</Menu.Item>
+    </Menu>
+  );
   return (
     <div className={styles.intro}>
       <div className={styles.login}>
         <div className={styles.title}> Dva Chatter </div>
-        <Button type="primary" size="large">
-          <Link to="/chat">
-          SIGN IN TO START TALKING
-          </Link>
-        </Button>
+        <Button.Group>
+          <Button type="primary">
+            <Link to="/chat">
+            <Icon type="message" /> START TALKING
+            </Link>
+          </Button>
+          <Button >
+            <Link to="/chatroom">
+            <Icon type="team" /> CHAT ROOM
+            </Link>
+          </Button>
+        </Button.Group>
       </div>
     </div>
   );

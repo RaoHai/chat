@@ -39,7 +39,9 @@ export default class ChatInput extends React.Component {
       onKeyDown={this.onKeyDown}
       type="textarea"
     />
-    <span className={styles.suffix} >发送</span>
+    <span className={styles.suffix}>
+      <span className={styles.send}>发送</span>
+    </span>
   </div>
   }
 }

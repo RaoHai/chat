@@ -5,12 +5,14 @@ var request = require('request');
 module.exports = {
 
   'GET /api/robot/init': function (req, res) {
-    const url = req.query.to === 'nuomijiqiren' ?
-      `https://webchat.im.baidu.com/chat?${qs.stringify(req.query)}` :
-      `https://cschat.cloud.alipay.com/client/init.json?${qs.stringify(req.query)}`;
-    request(url, function(err, resp, body) {
+    request(`https://cschat.cloud.alipay.com/client/init.json?${qs.stringify(req.query)}`, function(err, resp, body) {
       if (!err && resp.statusCode == 200) {
-        res.json(JSON.parse(body));
+        const json = JSON.parse(body);
+        res.json(Object.assign({}, json, {
+          robotParams: {
+            sessionUuid: json.data.sessionUuid,
+          },
+        }));
       }
     });
   },

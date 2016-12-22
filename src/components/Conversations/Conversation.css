@@ -1,4 +1,5 @@
 .panel {
-  height: 100%;
-  padding-bottom: 90px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }

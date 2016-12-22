@@ -1,8 +1,5 @@
 .mainPanel {
   background-color: #FDFDFD;
-  position: absolute;
-  left: 240px;
-  right: 0;
-  top: 50px;
-  bottom: 0;
+  flex: 1 100%;
+  display: flex;
 }

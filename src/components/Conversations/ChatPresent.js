@@ -1,11 +1,12 @@
 import React from 'react';
+import { connect } from 'dva';
 import styles from './ChatPresent.less';
 import { getRequestAnimationFrame, easeInOutCubic } from '../../utils/animate';
 import moment from 'moment';
 
 const reqAnimFrame = getRequestAnimationFrame();
 
-export default class ChatPresent extends React.Component {
+class ChatPresent extends React.Component {
   componentDidUpdate() {
     const startTime = Date.now();
     const scrollTop = this.container.scrollTop;
@@ -25,16 +26,27 @@ export default class ChatPresent extends React.Component {
       ref={c => this.container = c}
       className={styles.chatPresent}
     >
-    {this.props.conversations.map((conversation, idx) =>
-      <div key={`present-${idx}`} className={styles[conversation.from]}>
-        {conversation.from !== 'system'
-        ? <span className={styles.time}>{moment(conversation.time).format('HH:mm:ss')}</span>
-        : null }
+    {this.props.conversations.map((conversation, idx) => {
+      const isMe = this.props.user && conversation.user && conversation.user.uid === this.props.user.uid;
+      const from = isMe ? 'me' : conversation.from;
+      console.log('isMe', isMe);
+      return <div key={`present-${idx}`} className={styles[from]}>
+        {conversation.user && !isMe ? <img src={conversation.user.photoURL} /> : null }
+        <span className={styles.meta}>
+          {conversation.user && !isMe ? <span className={styles.userName}>{conversation.user.displayName}</span> : null}
+          {conversation.from !== 'system' && conversation.from !== 'chat' ?
+            <span className={styles.time}> {moment(conversation.time).format('YYYY-MM-DD HH:mm:ss')} </span>
+          : null }
+        </span>
         <div className={styles.bubble}>
         <span dangerouslySetInnerHTML={{ __html: conversation.content }} />
         </div>
       </div>
-    )}
+    })}
     </div>
   }
 }
+
+export default connect(props => ({
+  user: props.auth.user,
+}))(ChatPresent)

@@ -15,9 +15,10 @@ export default {
     *sendMessage({ payload }, { call, put }) {
       yield put({ type: 'conversations/userMessage', payload });
       const { data } = yield call(sendMessage, payload);
-      yield put({ type: 'conversations/robotMessage', payload: {
+      yield put({ type: 'conversations/message', payload: {
         cid: payload.cid,
         content: data.content,
+        type: 'robot',
       }});
     },
   },

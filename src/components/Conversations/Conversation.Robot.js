@@ -5,8 +5,8 @@ import ChatInput from './ChatInput';
 import styles from './Conversation.css';
 
 export default function RobotConversation(props) {
-  const { cid, robotParams } = props;
-  return <div className={styles.panel}>
+  const { cid, robotParams, active } = props;
+  return <div className={styles.panel} style={active ? { display: 'flex' } : { display: 'none' }}>
     <ChatHeader {...props} />
     <ChatPresent conversations={props.conversations} />
     <ChatInput onSendMessage={(message) => props.dispatch({

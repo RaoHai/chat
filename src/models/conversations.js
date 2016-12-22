@@ -1,17 +1,23 @@
 import { query, remove } from '../services/conversations';
 import { initRobot } from '../services/robot';
+import { fetch } from '../services/chat';
 
 export default {
 
   namespace: 'conversations',
 
-  state: { list: [], active: 0 },
+  state: { list: [], active: 0, filterValue: null },
 
   subscriptions: {
-
+    // setup({ dispatch, history }) {
+    //   dispatch({ type: 'fetch' });
+    // },
   },
 
   effects: {
+    *fetch({ payload }, { call, put }) {
+      const result = yield call(fetch);
+    },
     *loop({ payload }, { call, put }) {
       let i = 0;
       while (++i) {
@@ -20,9 +26,10 @@ export default {
         for (let j = 0; j < content.length; j++) {
           if (content[j].sessionType === 'robot') {
             const robotConfig = yield call(initRobot, content[j].robotParams);
+            const robotParams = {...content[j].robotParams, ...robotConfig.data.robotParams };
             yield put({
               type: 'save',
-              payload: { ...content[j], robotConfig: robotConfig.data, conversations: [
+              payload: { ...content[j], robotParams, conversations: [
                 { from: 'system', time: Date.now(), content: '已接入机器人。' },
                 { from: 'robot', time: Date.now(), type: 'text', content: '您好，有什么可以帮您的么？'},
               ]},
@@ -57,7 +64,7 @@ export default {
               userName: content.user.userName,
               avatar: content.avatar,
               sessionType: content.sessionType,
-              robotParams: {...content.robotParams, sessionUuid: content.robotConfig.data.sessionUuid },
+              robotParams: content.robotParams,
               conversations: content.conversations || [],
             });
           }
@@ -82,15 +89,16 @@ export default {
       });
       return {...state, list};
     },
-    robotMessage(state, { payload }) {
+    message(state, { payload }) {
       const list = state.list.map(item => {
         if (item.cid === payload.cid) {
           const conversations = item.conversations.slice();
           conversations.push({
-            from: 'robot',
-            time: Date.now(),
+            from: payload.type,
+            time: payload.time || Date.now(),
             type: 'text',
             content: payload.content,
+            user: payload.user,
           });
           return {...item, conversations };
         }
@@ -107,6 +115,9 @@ export default {
     },
     offline(state, { payload }) {
       return {...state, list: [] };
+    },
+    search(state, { payload }) {
+      return { ...state, filterValue: payload };
     }
   },
 
