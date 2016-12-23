@@ -4,6 +4,7 @@
     "index": "./src/index.js"
   },
   "dependencies": {
+    "antd": "^2.5.2",
     "assets": "^2.1.0",
     "chat": "^0.6.0",
     "dva": "^1.1.0",
