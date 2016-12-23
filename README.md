@@ -1,4 +1,4 @@
 # chat
 A Chat Scaffold based on antd and dva:
 
-![](https://cloud.githubusercontent.com/assets/566097/21448857/1190bba6-c922-11e6-9399-bdd0f8234cd9.png)
+![](https://cloud.githubusercontent.com/assets/566097/21448864/2dc1a59c-c922-11e6-9b80-726593d8163d.png)
