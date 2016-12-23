@@ -13,7 +13,7 @@ export default function SpinnerAvatar(props) {
     active: true,
   });
   return (<div className={cls}>
-    <span className={styles['avatar-spinner-mask']} style={style}/>
+    <span className={styles['avatar-spinner-mask']} style={style} />
     <span className={styles['avatar-spinner-mask2']} style={style} />
     <span className={styles['avatar-spinner-mask3']} style={style} />
     <span className={styles['avatar-image']} style={{ backgroundColor }}>

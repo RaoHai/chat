@@ -37,8 +37,7 @@ export default {
 
   reducers: {
     customerServiceOnline(states, { payload }) {
-      return {...states, ...payload };
-    }
+      return { ...states, ...payload };
+    },
   },
-
-}
+};

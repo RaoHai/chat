@@ -1,10 +1,11 @@
+
 export const easeInOutCubic = (t, b, c, d) => {
   const cc = c - b;
-  t /= d / 2;
-  if (t < 1) {
-    return cc / 2 * t * t * t + b;
+  let _t = t / (d / 2);
+  if (_t < 1) {
+    return cc / 2 * _t * _t * _t + b;
   }
-  return cc / 2 * ((t -= 2) * t * t + 2) + b;
+  return cc / 2 * ((_t -= 2) * _t * _t + 2) + b;
 };
 
 export function getRequestAnimationFrame() {

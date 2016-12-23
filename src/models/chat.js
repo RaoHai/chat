@@ -1,4 +1,3 @@
-import firebase from '../utils/firebase';
 import pathToRegexp from 'path-to-regexp';
 import { fetch, send } from '../services/chat';
 import { eventChannel } from 'redux-saga';
@@ -19,7 +18,7 @@ export default {
   },
 
   effects: {
-    *enter({ payload }, { call, put }) {
+    *enter({ payload }, { put }) {
       const cid = Date.now();
       yield put({ type: 'conversations/save', payload: {
         user: {
@@ -37,17 +36,20 @@ export default {
       const cid = payload.cid;
       const conversationsRef = yield call(fetch);
       function firebaseChannel() {
-        return eventChannel(emitter => conversationsRef.on('child_added', emitter))
+        return eventChannel(emitter => conversationsRef.on('child_added', emitter));
       }
 
       const cann = yield call(firebaseChannel);
       while (true) {
         const value = yield take(cann);
-        yield put({ type: 'conversations/message', payload: {...value.val(), cid, type: 'chat' } });
+        yield put({
+          type: 'conversations/message',
+          payload: { ...value.val(), cid, type: 'chat' },
+        });
       }
     },
-    *sendMessage({ payload }, { call, put }) {
-      const sendResult = yield call(send, payload);
+    *sendMessage({ payload }, { call }) {
+      yield call(send, payload);
     },
   },
 
@@ -56,5 +58,4 @@ export default {
       return { ...state, ...action.payload };
     },
   },
-
-}
+};

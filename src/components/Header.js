@@ -7,7 +7,7 @@ import CusomterServiceStatus from './CustomerService/CustomerServiceStatus';
 const Search = Input.Search;
 
 export default connect()(props => {
-  return <div className={styles.header}>
+  return (<div className={styles.header}>
     <Search
       style={{ width: 200 }}
       onChange={(e) => props.dispatch({
@@ -16,5 +16,5 @@ export default connect()(props => {
       })}
     />
     <CusomterServiceStatus />
-  </div>
+  </div>);
 });

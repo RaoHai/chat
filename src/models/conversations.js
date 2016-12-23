@@ -8,15 +8,9 @@ export default {
 
   state: { list: [], active: 0, filterValue: null },
 
-  subscriptions: {
-    // setup({ dispatch, history }) {
-    //   dispatch({ type: 'fetch' });
-    // },
-  },
-
   effects: {
-    *fetch({ payload }, { call, put }) {
-      const result = yield call(fetch);
+    *fetch({ payload }, { call }) {
+      yield call(fetch);
     },
     *loop({ payload }, { call, put }) {
       let i = 0;
@@ -26,13 +20,13 @@ export default {
         for (let j = 0; j < content.length; j++) {
           if (content[j].sessionType === 'robot') {
             const robotConfig = yield call(initRobot, content[j].robotParams);
-            const robotParams = {...content[j].robotParams, ...robotConfig.data.robotParams };
+            const robotParams = { ...content[j].robotParams, ...robotConfig.data.robotParams };
             yield put({
               type: 'save',
               payload: { ...content[j], robotParams, conversations: [
                 { from: 'system', time: Date.now(), content: '已接入机器人。' },
-                { from: 'robot', time: Date.now(), type: 'text', content: '您好，有什么可以帮您的么？'},
-              ]},
+                { from: 'robot', time: Date.now(), type: 'text', content: '您好，有什么可以帮您的么？' },
+              ] },
             });
           } else {
             yield put({ type: 'save', payload: content[j] });
@@ -71,7 +65,7 @@ export default {
           break;
         default: break;
       }
-      return {...state, list };
+      return { ...state, list };
     },
     userMessage(state, { payload }) {
       const list = state.list.map(item => {
@@ -83,11 +77,11 @@ export default {
             type: 'text',
             content: payload.message,
           });
-          return {...item, conversations };
+          return { ...item, conversations };
         }
         return item;
       });
-      return {...state, list};
+      return { ...state, list };
     },
     message(state, { payload }) {
       const list = state.list.map(item => {
@@ -100,25 +94,24 @@ export default {
             content: payload.content,
             user: payload.user,
           });
-          return {...item, conversations };
+          return { ...item, conversations };
         }
         return item;
       });
-      return {...state, list};
+      return { ...state, list };
     },
     setActive(state, { idx }) {
-      return {...state, active: idx };
+      return { ...state, active: idx };
     },
     removeItem(state, { payload }) {
       const list = state.list.filter(item => item.userId !== payload);
-      return {...state, list };
+      return { ...state, list };
     },
-    offline(state, { payload }) {
-      return {...state, list: [] };
+    offline(state) {
+      return { ...state, list: [] };
     },
     search(state, { payload }) {
       return { ...state, filterValue: payload };
-    }
+    },
   },
-
-}
+};

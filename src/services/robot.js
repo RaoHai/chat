@@ -8,6 +8,6 @@ export async function initRobot(params) {
 export async function sendMessage(params) {
   return request('/api/robot/getanswer', {
     method: 'post',
-    body: JSON.stringify({...params.robotParams, question: params.message }),
+    body: JSON.stringify({ ...params.robotParams, question: params.message }),
   });
 }

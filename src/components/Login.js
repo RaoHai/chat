@@ -6,7 +6,7 @@ import styles from './MainPanel.less';
 export default connect(props =>
   ({ auth: props.auth })
 )(props => {
-  return <div className={styles.input}>
+  return (<div className={styles.input}>
     <h3> LOGIN TO CHAT </h3>
     <Button.Group className={styles.button}>
       <Button
@@ -26,5 +26,5 @@ export default connect(props =>
         <Icon type="smile" /> ANONYMOUSLY LOGIN
       </Button>
     </Button.Group>
-  </div>
+  </div>);
 });

@@ -6,11 +6,6 @@ export default {
 
   state: {},
 
-  subscriptions: {
-    setup({ dispatch, history }) {
-    },
-  },
-
   effects: {
     *sendMessage({ payload }, { call, put }) {
       yield put({ type: 'conversations/userMessage', payload });
@@ -19,15 +14,13 @@ export default {
         cid: payload.cid,
         content: data.content,
         type: 'robot',
-      }});
+      } });
     },
   },
 
   reducers: {
-    sendMessage(state, action) {
-
-      return { ...state};
+    sendMessage(state) {
+      return { ...state };
     },
   },
-
-}
+};

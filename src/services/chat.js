@@ -16,13 +16,13 @@ export async function send({ message, user }) {
     },
   };
 
-  const chatData = {}
+  const chatData = {};
   chatData[`/chat/${newChatKey}`] = chat;
   return firebase.database().ref().update(chatData);
 }
 
 export async function login(user) {
-  const newUserKey = firebase.database().ref().child('user').push().key;
+  firebase.database().ref().child('user').push();
   const userData = {};
   userData[`/user/${user.uid}`] = {
     displayName: user.displayName,

@@ -1,17 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import { Menu, Dropdown, Icon, Button } from 'antd';
+import { Icon, Button } from 'antd';
 import styles from './IndexPage.css';
-import firebase from 'firebase';
 
-function IndexPage(props) {
-  const menu = (
-    <Menu onClick={(e) => props.dispatch({ type: 'auth/login', payload: e.key }) }>
-      <Menu.Item key="google"><Icon type="chrome" /> Sign with Google</Menu.Item>
-      <Menu.Item key="github"><Icon type="github" /> Sign with Github</Menu.Item>
-    </Menu>
-  );
+function IndexPage() {
   return (
     <div className={styles.intro}>
       <div className={styles.login}>

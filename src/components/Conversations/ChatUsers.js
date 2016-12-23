@@ -7,7 +7,7 @@ import styles from './ChatUser.css';
 export default connect(props => ({
   users: props.users.users,
 }))(props => {
-  return <div className={styles.chatUser}>
+  return (<div className={styles.chatUser}>
     <ul>
     <Icon type="right-square-o" /> Member: {props.users.length}
     {props.users.map(user =>
@@ -16,6 +16,5 @@ export default connect(props => ({
       </li>
     )}
     </ul>
-  </div>
-})
-
+  </div>);
+});

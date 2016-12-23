@@ -4,8 +4,8 @@ import Header from '../components/Header';
 import MainPanel from '../components/MainPanel';
 import styles from './Chat.css';
 
-export default function Chat(props) {
-  return <div className={styles.wrapper}>
+export default function Chat() {
+  return (<div className={styles.wrapper}>
     <div className={styles.chat}>
       <Header />
       <div className={styles.body}>
@@ -13,5 +13,5 @@ export default function Chat(props) {
         <MainPanel />
       </div>
     </div>
-  </div>
+  </div>);
 }

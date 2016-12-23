@@ -336,7 +336,13 @@ export default class ListSort extends React.Component {
   render() {
     const childrenToRender = toArrayChildren(this.state.children).map(this.getChildren);
     const props = { ...this.props };
-    ['component', 'components', 'animType', 'dragClassName', 'appearAnim'].forEach(key => delete props[key]);
+    [
+      'component',
+      'components',
+      'animType',
+      'dragClassName',
+      'appearAnim',
+    ].forEach(key => delete props[key]);
     if (this.props.appearAnim) {
       return React.createElement(QueueAnim, {
         ...props,

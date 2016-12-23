@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Input } from 'antd';
 import styles from './ChatInput.less';
 
@@ -33,17 +32,17 @@ export default class ChatInput extends React.Component {
     });
   }
   render() {
-    return <div className={styles.input}>
+    return (<div className={styles.input}>
     <Input
       value={this.state.value}
       onChange={this.handleChange}
-      ref={c => this.inputElement = c}
+      ref={c => { this.inputElement = c; }}
       onKeyDown={this.onKeyDown}
       type="textarea"
     />
     <span className={styles.suffix} onClick={this.sendMessage}>
       <span className={styles.send}>发送</span>
     </span>
-  </div>
+    </div>);
   }
 }

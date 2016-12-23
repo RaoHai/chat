@@ -10,7 +10,7 @@ export default connect(props => ({
   user: props.auth.user,
 }))(props => {
   const { cid, robotParams, active, user } = props;
-  return <div className={styles.panel} style={active ? { display: 'flex' } : { display: 'none' }}>
+  return (<div className={styles.panel} style={active ? { display: 'flex' } : { display: 'none' }}>
     <ChatHeader {...props} />
     <ChatPresent conversations={props.conversations} />
     {user ? <ChatInput onSendMessage={(message) =>
@@ -19,5 +19,5 @@ export default connect(props => ({
         payload: { message, cid, robotParams, user },
       })}
     /> : <Login />}
-  </div>
+  </div>);
 });

@@ -13,15 +13,6 @@ export default {
 
   state: { user: firebase.auth().currentUser },
 
-  subscriptions: {
-    unload({ dispatch }) {
-      // window.onbeforeunload = function () {
-      //   dispatch({ type: 'logout' });
-      //   return false;
-      // }
-    },
-  },
-
   effects: {
     *login({ payload }, { call, put }) {
       let provider;
@@ -39,13 +30,12 @@ export default {
         authResult = yield call(() => firebase.auth().signInWithPopup(provider));
       }
       if (authResult) {
-        const cid = Date.now();
         const user = { ...anonymouseUser, ...authResult.user };
         yield call(login, user);
         yield put({ type: 'authed', payload: { ...authResult, user } });
       }
     },
-    *logout({ payload }, { select, call, put }) {
+    *logout({ payload }, { select, call }) {
       const state = yield select();
       const uid = state.auth.user.uid;
       if (uid) {
@@ -59,5 +49,4 @@ export default {
       return { ...state, ...payload };
     },
   },
-
-}
+};

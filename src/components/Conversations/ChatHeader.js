@@ -6,7 +6,7 @@ import styles from './ChatHeader.less';
 
 export default connect()(({ userId, userName, sessionType, avatar, dispatch }) => {
   const nameSub = userName.substr(0, 1).toUpperCase();
-  return <div className={styles.header}>
+  return (<div className={styles.header}>
     <span className={styles.avatar} style={{ backgroundColor: getColorByChar(nameSub) }}>
       {avatar ? <img src={avatar} /> : <span className={styles.nameSub}>{nameSub}</span>}
     </span>
@@ -18,5 +18,5 @@ export default connect()(({ userId, userName, sessionType, avatar, dispatch }) =
     >
       <Icon type="close" />
     </div>
-  </div>
+  </div>);
 });

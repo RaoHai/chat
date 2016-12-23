@@ -21,7 +21,7 @@ function highlight(text, highlightValue) {
 }
 
 export default connect(select)(({ filterValue, dispatch, conversations, active }) => {
-  return <div>
+  return (<div>
     {conversations
       .filter(({ userName }) => !filterValue || userName.indexOf(filterValue) !== -1)
       .map((conversation, idx) => {
@@ -31,7 +31,7 @@ export default connect(select)(({ filterValue, dispatch, conversations, active }
           [styles.conversation]: true,
           [styles.active]: active === idx,
         });
-        return <div
+        return (<div
           onClick={() => dispatch({ type: 'conversations/setActive', idx })}
           className={conversationCls}
           key={idx}
@@ -49,8 +49,8 @@ export default connect(select)(({ filterValue, dispatch, conversations, active }
           >
             <Icon type="close" />
           </span>
-        </div>
+        </div>);
       })
     }
-  </div>
+  </div>);
 });
