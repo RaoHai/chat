@@ -9,6 +9,7 @@
     "dva": "^1.1.0",
     "hoist-non-react-statics": "^1.2.0",
     "lokka": "^1.7.0",
+    "path-to-regexp": "^1.7.0",
     "rc-queue-anim": "^0.12.6",
     "rc-tween-one": "^0.11.11",
     "react": "^15.3.2",

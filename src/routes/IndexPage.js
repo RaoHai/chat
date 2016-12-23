@@ -15,7 +15,9 @@ function IndexPage(props) {
   return (
     <div className={styles.intro}>
       <div className={styles.login}>
-        <div className={styles.title}> Dva Chatter </div>
+        <div className={styles.title}>
+          <img src="https://zos.alipayobjects.com/rmsportal/hXPAkjiVgmrxvEYufwRO.png" />
+        </div>
         <Button.Group>
           <Button type="primary">
             <Link to="/chat">

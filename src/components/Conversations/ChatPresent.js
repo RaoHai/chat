@@ -29,7 +29,6 @@ class ChatPresent extends React.Component {
     {this.props.conversations.map((conversation, idx) => {
       const isMe = this.props.user && conversation.user && conversation.user.uid === this.props.user.uid;
       const from = isMe ? 'me' : conversation.from;
-      console.log('isMe', isMe);
       return <div key={`present-${idx}`} className={styles[from]}>
         {conversation.user && !isMe ? <img src={conversation.user.photoURL} /> : null }
         <span className={styles.meta}>

@@ -12,7 +12,7 @@ export default connect(props => ({ auth: props.auth }))(props => <div className=
     <Header />
     <div className={styles.body}>
       <Slider />
-      {props.auth.user || props.auth.isAnonymous ? <MainPanel /> : <Login />}
+      <MainPanel />
       <ChatUsers />
     </div>
   </div>

@@ -20,7 +20,7 @@ export default connect(select)(({ user, status, serviceName, dispatch }) => {
       <a onClick={() => dispatch({ type: 'customerService/offline' })}> 离线 </a>
     </Menu.Item>
   </Menu>;
-  const avatarColor = status === ONLINE ? '#57C6F7' : 'white';
+  const avatarColor = status === ONLINE ? '#57C6F7' : '#999';
   const statusColor = status === ONLINE ? '#87D068' : '#ccc';
 
   return <div className={styles.server}>

@@ -15,10 +15,10 @@ export default {
 
   subscriptions: {
     unload({ dispatch }) {
-      window.onbeforeunload = function () {
-        dispatch({ type: 'logout' });
-        return false;
-      }
+      // window.onbeforeunload = function () {
+      //   dispatch({ type: 'logout' });
+      //   return false;
+      // }
     },
   },
 
@@ -43,17 +43,6 @@ export default {
         const user = { ...anonymouseUser, ...authResult.user };
         yield call(login, user);
         yield put({ type: 'authed', payload: { ...authResult, user } });
-        yield put({ type: 'conversations/save', payload: {
-          user: {
-            userId: 'chat-room-1',
-            userName: '默认聊天室',
-          },
-          cid,
-          type: 'sessionStart',
-          conversations: [],
-        } });
-        yield put({ type: 'chat/loop', payload: { cid } });
-        yield put({ type: 'users/loop', payload: { cid } });
       }
     },
     *logout({ payload }, { select, call, put }) {

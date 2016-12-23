@@ -1,4 +1,5 @@
 import firebase from '../utils/firebase';
+import pathToRegexp from 'path-to-regexp';
 import { fetch, send } from '../services/chat';
 import { eventChannel } from 'redux-saga';
 export default {
@@ -7,8 +8,31 @@ export default {
 
   state: {},
 
+  subscriptions: {
+    autoStartChatSession({ dispatch, history }) {
+      return history.listen(({ pathname }) => {
+        if (pathToRegexp('/chatroom').exec(pathname)) {
+          dispatch({ type: 'enter', payload: 'default' });
+        }
+      });
+    },
+  },
 
   effects: {
+    *enter({ payload }, { call, put }) {
+      const cid = Date.now();
+      yield put({ type: 'conversations/save', payload: {
+        user: {
+          userId: 'chat-room-1',
+          userName: '默认聊天室',
+        },
+        cid,
+        type: 'sessionStart',
+        conversations: [],
+      } });
+      yield put({ type: 'loop', payload: { cid } });
+      yield put({ type: 'users/loop', payload: { cid } });
+    },
     *loop({ payload }, { call, put, take }) {
       const cid = payload.cid;
       const conversationsRef = yield call(fetch);
@@ -24,7 +48,6 @@ export default {
     },
     *sendMessage({ payload }, { call, put }) {
       const sendResult = yield call(send, payload);
-      console.log('>> sendMessage', sendResult);
     },
   },
 

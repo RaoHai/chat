@@ -1,10 +1,8 @@
 import React from 'react';
 import RobotConversation from './Conversations/Conversation.Robot';
 import ChatConversation from './Conversations/Conversation.Chat';
-
-import styles from './MainPanel.css';
 import { connect } from 'dva';
-
+import styles from './MainPanel.less';
 
 export default connect(props => ({
   list: props.conversations.list,
