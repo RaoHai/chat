@@ -10,7 +10,7 @@ const select = props => ({
   status: props.customerService.status,
 });
 
-export default connect(select)(({ user, status, serviceName, dispatch }) => {
+export default connect(select)(({ className, user, status, serviceName, dispatch }) => {
   const menu = (<Menu>
     <Menu.Item>
       <a onClick={() => dispatch({ type: 'customerService/online' })}> 上线 </a>
@@ -22,7 +22,7 @@ export default connect(select)(({ user, status, serviceName, dispatch }) => {
   const avatarColor = status === ONLINE ? '#57C6F7' : '#999';
   const statusColor = status === ONLINE ? '#87D068' : '#ccc';
 
-  return (<div className={styles.server}>
+  return (<div className={className}>
     <Dropdown overlay={menu}>
       <div className={styles.avatar} style={{ backgroundColor: avatarColor }}>
         {user && user.photoURL ?

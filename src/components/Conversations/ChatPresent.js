@@ -14,6 +14,7 @@ class ChatPresent extends React.Component {
     this.scrollIntoView();
   }
   scrollIntoView = () => {
+    if (!this.container) { return; }
     const startTime = Date.now();
     const scrollTop = this.container.scrollTop;
     const targetScrollTop = this.container.scrollHeight;

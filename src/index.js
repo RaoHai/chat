@@ -7,6 +7,7 @@ import dva from 'dva';
 const app = dva();
 
 // 3. Model
+app.model(require('./models/ui'));
 app.model(require('./models/auth'));
 app.model(require('./models/conversations'));
 app.model(require('./models/customService'));

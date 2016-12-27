@@ -1,20 +1,23 @@
 import React from 'react';
 import { Input } from 'antd';
 import { connect } from 'dva';
-import styles from './Header.less';
+import Cards from './Cards';
 import CusomterServiceStatus from './CustomerService/CustomerServiceStatus';
+import styles from './Header.less';
 
 const Search = Input.Search;
 
 export default connect()(props => {
   return (<div className={styles.header}>
     <Search
+      className={styles.search}
       style={{ width: 200 }}
       onChange={(e) => props.dispatch({
         type: 'conversations/search',
         payload: e.target.value,
       })}
     />
-    <CusomterServiceStatus />
+    <Cards className={styles.cards} />
+    <CusomterServiceStatus className={styles.avatar}/>
   </div>);
 });
