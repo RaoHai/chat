@@ -1,0 +1,9 @@
+.icon, .active{
+  font-size: 20px;
+  margin:0 15px;
+  cursor: pointer;
+}
+
+.active {
+  color: #0ae;
+}
