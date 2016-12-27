@@ -1,5 +1,5 @@
 import firebase from '../utils/firebase';
-import { login, logout } from '../services/chat';
+import { login, logout, enterDefaultChatRoom } from '../services/chat';
 
 const anonymouseUser = {
   displayName: `无名大侠-${(Math.random() * 1000).toFixed()}`,
@@ -32,7 +32,14 @@ export default {
       if (authResult) {
         const user = { ...anonymouseUser, ...authResult.user };
         yield call(login, user);
+        yield call(enterDefaultChatRoom, user);
         yield put({ type: 'authed', payload: { ...authResult, user } });
+        yield put({ type: 'conversations/watch', payload: { user } });
+        yield put({ type: 'chat/watch', payload: { user } });
+
+        window.onunload = function () {
+          firebase.database().ref(`user/${user.uid}`).remove();
+        };
       }
     },
     *logout({ payload }, { select, call }) {

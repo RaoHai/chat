@@ -29,26 +29,27 @@ class ChatPresent extends React.Component {
     reqAnimFrame(frameFunc);
   }
   render() {
-    const { user } = this.props;
+    const { user, sessionType } = this.props;
     return (<div
       ref={c => {this.container = c;}}
       className={styles.chatPresent}
     >
     {this.props.conversations.map((conversation, idx) => {
       const isMe = user && conversation.user && conversation.user.uid === this.props.user.uid;
-      const from = isMe ? 'me' : conversation.from;
+      const isSolo = sessionType === 'solo';
+      const from = isMe ? 'me' : conversation.from || 'chat';
       return (<div key={`present-${idx}`} className={styles[from]}>
         {conversation.user && !isMe ? <img src={conversation.user.photoURL} /> : null }
 
         <span className={styles.meta}>
 
-          {conversation.user && !isMe ?
+          {conversation.user && !isMe && !isSolo ?
             <span className={styles.userName}>
               {conversation.user.displayName}
             </span>
           : null}
 
-          {conversation.from !== 'system' && conversation.from !== 'chat' ?
+          {conversation.from !== 'system' && !(conversation.from === 'chat' && isMe) ?
             <span className={styles.time}>
               {moment(conversation.time).format('YYYY-MM-DD HH:mm:ss')}
             </span>

@@ -4,20 +4,40 @@ export async function fetch() {
   return firebase.database().ref('chat').limitToLast(100);
 }
 
-export async function send({ message, user }) {
-  const newChatKey = firebase.database().ref().child('chat').push().key;
+function buildUser(user) {
+  return {
+    displayName: user.displayName,
+    uid: user.uid,
+    photoURL: user.photoURL,
+  };
+}
+
+export async function enterDefaultChatRoom(user) {
+  const defaultParticipants = {
+    [user.uid]: buildUser(user),
+  };
+  return firebase.database().ref(`/conversations/default/participants/`).transaction(currentData => {
+    if (currentData === null) {
+      return defaultParticipants;
+    } else {
+      return {
+        ...currentData,
+        ...defaultParticipants,
+      };
+    }
+  });
+}
+
+export async function send({ message, user, cid }) {
+  const newChatKey = firebase.database().ref().child(`conversations/${cid}/chats`).push().key;
   const chat = {
     content: message,
     time: Date.now(),
-    user: {
-      displayName: user.displayName,
-      uid: user.uid,
-      photoURL: user.photoURL,
-    },
+    user: buildUser(user),
   };
 
   const chatData = {};
-  chatData[`/chat/${newChatKey}`] = chat;
+  chatData[`/conversations/${cid}/chats/${newChatKey}`] = chat;
   return firebase.database().ref().update(chatData);
 }
 
@@ -31,6 +51,7 @@ export async function login(user) {
   };
   return firebase.database().ref().update(userData);
 }
+
 
 export async function logout(uid) {
   return firebase.database().ref(`/user/${uid}`).remove();
