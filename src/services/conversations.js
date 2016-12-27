@@ -37,3 +37,7 @@ export async function createConversation({ from, to }) {
     }
   });
 }
+
+export async function deleteConversation({ cid }) {
+  return firebase.database().ref(`conversations/${cid}`).remove();
+}

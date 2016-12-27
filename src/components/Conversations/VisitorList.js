@@ -25,7 +25,7 @@ export default connect(select)(({ filterValue, dispatch, conversations, active }
     {conversations
       .filter(({ userName }) => !filterValue || userName.indexOf(filterValue) !== -1)
       .map((conversation, idx) => {
-        const { userId, userName, sessionType, avatar } = conversation;
+        const { cid, userId, userName, sessionType, avatar } = conversation;
         const nameSub = userName.substr(0, 1).toUpperCase();
         const conversationCls = classNames({
           [styles.conversation]: true,
@@ -45,7 +45,7 @@ export default connect(select)(({ filterValue, dispatch, conversations, active }
           </span>
           <span
             className={styles.close}
-            onClick={() => dispatch({ type: 'conversations/remove', userId })}
+            onClick={() => dispatch({ type: 'conversations/remove', payload: { sessionType, cid, userId } })}
           >
             <Icon type="close" />
           </span>

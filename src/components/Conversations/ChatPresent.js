@@ -48,7 +48,7 @@ class ChatPresent extends React.Component {
             </span>
           : null}
 
-          {conversation.from !== 'system' && conversation.from !== 'chat' ?
+          {conversation.from !== 'system' && !(conversation.from === 'chat' && isMe) ?
             <span className={styles.time}>
               {moment(conversation.time).format('YYYY-MM-DD HH:mm:ss')}
             </span>

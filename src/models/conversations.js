@@ -1,4 +1,4 @@
-import { fetch, query, remove, createConversation } from '../services/conversations';
+import { fetch, query, remove, createConversation, deleteConversation } from '../services/conversations';
 import { initRobot } from '../services/robot';
 import { eventChannel } from 'redux-saga';
 // import { fetch } from '../services/chat';
@@ -39,7 +39,7 @@ export default {
   },
 
   effects: {
-    *enter({ payload }, { call, put }) {
+    *enter({ payload }, { put }) {
       yield put({ type: 'users/loop' });
       yield put({ type: 'getDefaultChatRoom' });
     },
@@ -71,12 +71,11 @@ export default {
       const cann = yield call(firebaseChannel);
       while (true) {
         const chats = yield take(cann);
-        console.log('>> chats', chats.val());
         yield put({ type: 'update', payload: { chats, uid } });
       }
     },
     *add({ payload }, { call, put }) {
-      const { from, to, cid, conversations, sessionType } = payload;
+      const { from, to, cid } = payload;
       yield call(createConversation, { from, to });
       yield put({ type: 'chat/loop', payload: { cid } });
     },
@@ -102,10 +101,16 @@ export default {
         }
       }
     },
-    *remove({ userId }, { call, put }) {
-      const result = yield call(remove, { userId });
-      if (result.data.success === true) {
-        yield put({ type: 'removeItem', payload: userId });
+    *remove({ payload }, { call, put }) {
+      const { sessionType, userId, cid } = payload;
+      let result;
+      if (sessionType === 'robot') {
+        result = yield call(remove, { userId });
+        if (result.data.success === true) {
+          yield put({ type: 'removeItem', payload: userId });
+        }
+      } else {
+        result = yield call(deleteConversation, { cid });
       }
     },
   },
@@ -162,6 +167,23 @@ export default {
             time: Date.now(),
             type: 'text',
             content: payload.message,
+          });
+          return { ...item, conversations };
+        }
+        return item;
+      });
+      return { ...state, list };
+    },
+    robotMessage(state, { payload }) {
+      const list = state.list.map(item => {
+        if (item.cid === payload.cid) {
+          const conversations = item.conversations.slice();
+          conversations.push({
+            from: payload.type,
+            time: payload.time || Date.now(),
+            type: 'text',
+            content: payload.content,
+            user: payload.user,
           });
           return { ...item, conversations };
         }

@@ -10,13 +10,13 @@ export default connect(props => ({
 }))(props => {
   return (<div className={styles.chatUser}>
     <ul>
-    <Icon type="right-square-o" /> Member: {props.users.length}
+    <Icon type="right-square-o" /> [{props.users.length}] 点击发起私聊
     {props.users.map(user =>
       <li className={styles.list} key={user.uid} onClick={ () =>
-        props.dispatch({
+        props.user && props.user.uid && props.user.uid !== user.uid ? props.dispatch({
           type: 'conversations/add',
           payload: { from: props.user, to: user },
-        })}
+        }) : null }
       >
         <img className={styles.image} src={user.photoURL} /> {user.displayName}
       </li>

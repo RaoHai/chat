@@ -8,19 +8,6 @@ export default {
   state: {},
 
   effects: {
-    *watch({ payload }, { call, put, take}) {
-      // const uid = payload.user.uid;
-      // const conversationsRef = firebase.database().ref('chat').orderByChild('conversations').child('from').equalTo(uid);
-      // function firebaseChannel() {
-      //   return eventChannel(emitter => conversationsRef.on('value', emitter));
-      // }
-
-      // const cann = yield call(firebaseChannel);
-      // while (true) {
-      //   const chats = yield take(cann);
-      //   console.log('>> chats', chats.val());
-      // }
-    },
     *loop({ payload }, { call, put, take }) {
       const cid = payload.cid;
       const conversationsRef = firebase.database().ref(`conversations/${cid}/chats`).limitToLast(100);
@@ -32,7 +19,6 @@ export default {
       const cann = yield call(firebaseChannel);
       while (true) {
         const chats = yield take(cann);
-        console.log('>> call loop', chats.val());
         yield put({
           type: 'conversations/message',
           payload: { chats, cid, type: 'chat' },
