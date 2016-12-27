@@ -1,4 +1,4 @@
-import pathToRegexp from 'path-to-regexp';
+import firebase from '../utils/firebase';
 import { fetch, send } from '../services/chat';
 import { eventChannel } from 'redux-saga';
 export default {
@@ -7,44 +7,35 @@ export default {
 
   state: {},
 
-  subscriptions: {
-    autoStartChatSession({ dispatch, history }) {
-      return history.listen(({ pathname }) => {
-        if (pathToRegexp('/chatroom').exec(pathname)) {
-          dispatch({ type: 'enter', payload: 'default' });
-        }
-      });
-    },
-  },
-
   effects: {
-    *enter({ payload }, { put }) {
-      const cid = Date.now();
-      yield put({ type: 'conversations/save', payload: {
-        user: {
-          userId: 'chat-room-1',
-          userName: '默认聊天室',
-        },
-        cid,
-        type: 'sessionStart',
-        conversations: [],
-      } });
-      yield put({ type: 'loop', payload: { cid } });
-      yield put({ type: 'users/loop', payload: { cid } });
+    *watch({ payload }, { call, put, take}) {
+      // const uid = payload.user.uid;
+      // const conversationsRef = firebase.database().ref('chat').orderByChild('conversations').child('from').equalTo(uid);
+      // function firebaseChannel() {
+      //   return eventChannel(emitter => conversationsRef.on('value', emitter));
+      // }
+
+      // const cann = yield call(firebaseChannel);
+      // while (true) {
+      //   const chats = yield take(cann);
+      //   console.log('>> chats', chats.val());
+      // }
     },
     *loop({ payload }, { call, put, take }) {
       const cid = payload.cid;
-      const conversationsRef = yield call(fetch);
+      const conversationsRef = firebase.database().ref(`conversations/${cid}/chats`).limitToLast(100);
+      conversationsRef.off();
       function firebaseChannel() {
-        return eventChannel(emitter => conversationsRef.on('child_added', emitter));
+        return eventChannel(emitter => conversationsRef.on('value', emitter));
       }
 
       const cann = yield call(firebaseChannel);
       while (true) {
-        const value = yield take(cann);
+        const chats = yield take(cann);
+        console.log('>> call loop', chats.val());
         yield put({
           type: 'conversations/message',
-          payload: { ...value.val(), cid, type: 'chat' },
+          payload: { chats, cid, type: 'chat' },
         });
       }
     },
